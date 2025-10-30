@@ -1,8 +1,7 @@
-body {
-  margin: 0;
+/* ====== Typography ====== */
+h1,
+p {
   font-family: sans-serif;
-  background-color: #f8bbd0; /* warm pink background */
-  overflow-x: hidden;
 }
 
 h1 {
@@ -13,6 +12,11 @@ p {
   text-indent: 50px;
 }
 
+/* ====== Layout ====== */
+body {
+  margin: 0;
+}
+
 .container {
   position: relative;
   width: 100%;
@@ -20,7 +24,7 @@ p {
   overflow: visible;
 }
 
-/* MAIN HEART */
+/* ====== Heart Animation ====== */
 .heart {
   position: absolute;
   left: 50%;
@@ -28,8 +32,7 @@ p {
   text-align: center;
   transform: translate(-50%, -50%);
   transition: transform 2s;
-  z-index: 2;
-  cursor: pointer;
+  z-index: 1;
 }
 
 .heart > img {
@@ -37,21 +40,86 @@ p {
   height: auto;
 }
 
-/* MESSAGE BOX */
+.heart > img:hover {
+  animation-name: beat;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+/* ====== Message Box ====== */
 .message {
   padding: 20px;
-  background-color: #ffe0e6; /* soft blush tone */
+  background-color: #eee;
   min-width: 80%;
   height: 75%;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 0;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  border-radius: 15px;
-  transition: height 2s, padding 2s;
+  animation-name: openmsg;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-play-state: paused;
+  animation-fill-mode: forwards;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+              0 6px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+}
+
+/* ====== Empty Selector ====== */
+#messageState {
+  /* Add styles if needed */
+}
+
+/* ====== Keyframes ====== */
+@keyframes beat {
+  0%   { width: 50px; }
+  25%  { width: 58px; }
+  30%  { width: 50px; }
+  50%  { width: 45px; }
+  60%  { width: 50px; }
+  75%  { width: 58px; }
+  100% { width: 50px; }
+}
+
+@keyframes openmsg {
+  0% {
+    height: 0;
+    padding: 0 20px;
+  }
+  100% {
+    height: 75%;
+    padding: 20px 20px;
+  }
+}
+
+@keyframes heartMove {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: 85%;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ====== Animation Classes ====== */
+.openNor {
+  animation-direction: normal;
+  animation-play-state: running;
+}
+
+.closeNor {
+  animation-direction: reverse;
+  animation-play-state: running;
+}
+
+.no-anim {
+  animation: none;
 }
 
 .closed {
@@ -59,33 +127,25 @@ p {
   padding: 0 20px;
 }
 
-/* HEART ANIMATION */
-@keyframes heartMove {
-  0% { top: 50%; }
-  100% { top: 85%; transform: translate(-50%, 0); }
+.bottom {
+  bottom: 5px;
 }
 
 .openHer {
   animation-name: heartMove;
   animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-play-state: running;
   animation-fill-mode: forwards;
 }
 
 .closeHer {
   animation-name: heartMove;
   animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-play-state: running;
   animation-direction: reverse;
   animation-fill-mode: forwards;
-}
-
-@keyframes beat {
-  0% { width: 50px; }
-  25% { width: 58px; }
-  30% { width: 50px; }
-  50% { width: 45px; }
-  60% { width: 50px; }
-  75% { width: 58px; }
-  100% { width: 50px; }
 }
 
 .beating > img {
@@ -93,36 +153,11 @@ p {
   animation-duration: 2s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
+  animation-play-state: running;
 }
 
-/* FLOATING HEARTS */
-.floating-hearts {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+.openedHer {
+  top: 85%;
+  transform: translate(-50%, 0);
 }
 
-.floating-hearts .heart-particle {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg');
-  background-size: cover;
-  opacity: 0.8;
-  animation: floatUp linear infinite, sway ease-in-out infinite;
-  will-change: transform;
-}
-
-/* FLOAT UP */
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-120vh); opacity: 0; }
-}
-
-/* SWAY SIDE TO SIDE */
-@keyframes sway {
-  0%, 100% { transform: translateX(0) rotate(0deg) scale(1); }
-  50% { transform: translateX(15px) rotate(15deg) scale(1.2); }
-}
