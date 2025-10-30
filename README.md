@@ -16,7 +16,7 @@
       <input id="messageState" type="checkbox" style="display:none"/>
     </label>
 
-    <div class="message">
+    <div class="message closed no-anim">
       <h1>Hi my love,</h1>
 
       <p>
@@ -90,5 +90,9 @@
       </p>
     </div>
   </div>
+
+  <!-- jQuery + your script -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
